@@ -62,8 +62,8 @@ In your YAML file, add:
           user-token: ${{ secrets.CDRO_USER_TOKEN }}
           project-name: MyProject
           releaseh-name: MyRelease
-          parameters: '{"param1":"val1","param2":"val2"}'
-
+          parameters: '{\"param1\":\"val1\",\"param2\":\"val2\"}'
+      
 
 ----
 
