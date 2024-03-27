@@ -46,4 +46,4 @@ runs:
           --data-urlencode "releaseName=${{ inputs.release-name }}" \
           -u ${{ inputs.username }}:${{ inputs.user-token }} \
           -H "accept: application/json" \
-          -d ${{ inputs.parameters }}
+          -d "${{ inputs.parameters }}"
