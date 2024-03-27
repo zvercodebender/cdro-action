@@ -55,11 +55,11 @@ In your YAML file, add:
 
     steps: 
       - name: Run CDRO release pipeline
-        uses: rbroker/cdro-action@v1
+        uses: zvercodebender/cdro-action@v1
         with:
           url: https://sda.preview.cb-demos.io/
           username: ${{ secrets.CDRO_USERNAME }}
-          trigger-token: ${{ secrets.CDRO_USER_TOKEN }}
+          user-token: ${{ secrets.CDRO_USER_TOKEN }}
           project-name: MyProject
           releaseh-name: MyRelease
           parameters: '{"param1":"val1","param2":"val2"}'

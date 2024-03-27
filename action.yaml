@@ -39,6 +39,7 @@ runs:
         JWT_TOKEN: ${{ cloudbees.api.token }}
       run: |
         set -x
+        env
         cd /app
         curl -k -X POST "${{ inputs.url }}/rest/v1.0/releases?projectName=${{ inputs.project-name }}&releaseName=${{ inputs.release-name }}" \
           -u ${{ inputs.username }}:${{ inputs.user-token }} \
