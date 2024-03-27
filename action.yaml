@@ -40,10 +40,12 @@ runs:
         echo "project-name: ${{ inputs.project-name }}"
         echo "release-name: ${{ inputs.release-name }}"
         echo "Variables: ${{ inputs.parameters }}"
+        echo "${{ inputs.parameters }}" > data.json
+        cat data.json
         echo "Run CURL"
         curl -k -X POST "${{ inputs.url }}/rest/v1.0/releases" \
           --data-urlencode "projectName=${{ inputs.project-name }}" \
           --data-urlencode "releaseName=${{ inputs.release-name }}" \
           -u ${{ inputs.username }}:${{ inputs.user-token }} \
           -H "accept: application/json" \
-          -d "${{ inputs.parameters }}"
+          -d @data.json
