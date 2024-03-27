@@ -34,7 +34,7 @@ runs:
       run: |
         set -x
         env
-        cd /app
+        df -h
         curl -k -X POST "${{ inputs.url }}/rest/v1.0/releases?projectName=${{ inputs.project-name }}&releaseName=${{ inputs.release-name }}" \
           -u ${{ inputs.username }}:${{ inputs.user-token }} \
           -H "accept: application/json" \
