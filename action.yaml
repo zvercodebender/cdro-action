@@ -1,0 +1,46 @@
+apiVersion: automation.cloudbees.io/v1alpha1
+kind: action
+name: "CDRO Actions"
+inputs:
+  url:
+    description: 'CDRO URL'
+    required: false
+    default: 'https://sda.preview.cb-demos.io/'
+  username:
+    description: 'CDRO Username'
+    required: true
+  user-token:
+    description: 'CDRO User token'
+    required: true
+  project-name:
+    description: 'project name'
+    required: true
+  release-name:
+    description: 'release name'
+    required: true
+  parameters:   
+    description: 'parameters as json'
+    required: false
+    default: '{}'
+
+
+runs:
+  using: composite
+  steps:
+    - id: invoke-cdro-action
+      name: invoke-cdro-action
+      uses: docker://fedora:39
+      shell: sh
+      env: 
+        RUN_ID: ${{ cloudbees.run_id }}
+        JOB_ID: ${{ job.id }}
+        STEP_ID: ${{ step.internal.id }}
+        DNS_URL: ${{ cloudbees.api.url }}
+        JWT_TOKEN: ${{ cloudbees.api.token }}
+      run: |
+        set -x
+        cd /app
+        curl -k -X POST "${{ inputs.url }}/rest/v1.0/releases?projectName=${{ inputs.project-name }}&releaseName=${{ inputs.release-name }}" \
+          -u ${{ inputs.username }}:${{ inputs.user-token }} \
+          -H "accept: application/json" \
+          -d "${{ inputs.parameters }}"

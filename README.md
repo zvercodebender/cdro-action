@@ -1,0 +1,78 @@
+= CloudBees action: Run a CD/RO Release
+
+Use this action to trigger a CD/RO Release, a part of a continuous integration and continuous delivery (CI/CD) process.
+
+== Inputs
+
+[cols="2a,1a,1a,3a",options="header"]
+.Input details
+|===
+
+| Input name
+| Data type
+| Required?
+| Description
+
+| `url`
+| String
+| No
+| The CD/RO server URL.
+If not specified, uses `https://sda.preview.cb-demos.io/`.
+
+| `username`
+| String
+| Yes
+| The CD/RO Username.
+
+| `user-token`
+| String
+| Yes
+| The CD/RO API token.
+
+| `project-name`
+| String
+| Yes
+| The CD/RO pipeline project name.
+
+| `release-name`
+| String
+| Yes
+| The CD/RO Release name.
+
+| `parameters`
+| JSON
+| No
+| CD/RO pipeline parameters, formatted as JSON data in key/value pairs.
+
+|===
+
+== Usage example
+
+In your YAML file, add:
+
+[source,yaml]
+----
+
+    steps: 
+      - name: Run CDRO release pipeline
+        uses: rbroker/cdro-action@v1
+        with:
+          url: https://sda.preview.cb-demos.io/
+          username: ${{ secrets.CDRO_USERNAME }}
+          trigger-token: ${{ secrets.CDRO_USER_TOKEN }}
+          project-name: MyProject
+          releaseh-name: MyRelease
+          parameters: '{"param1":"val1","param2":"val2"}'
+
+
+----
+
+== License
+
+This code is made available under the 
+link:https://opensource.org/license/mit/[MIT license].
+
+== References
+
+* Learn more about link:https://docs.cloudbees.com/docs/cloudbees-saas-platform/latest/actions[using actions in CloudBees workflows].
+* Learn about link:https://docs.cloudbees.com/docs/cloudbees-saas-platform/latest/[the CloudBees platform].
