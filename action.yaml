@@ -32,18 +32,12 @@ runs:
       uses: docker://fedora:39
       shell: sh
       run: |
-        set -x
-        echo "Show ENV"
-        env
-        echo "Show Disks"
-        df -h
-        echo "project-name: ${{ inputs.project-name }}"
-        echo "release-name: ${{ inputs.release-name }}"
-        echo "Variables: ${{ inputs.parameters }}"
+        #set -x
+        dnf -y install jq
         echo "${{ inputs.parameters }}" > data.json
         cat data.json
-        echo "Run CURL"
         curl -k -X POST "${{ inputs.url }}/rest/v1.0/releases?projectName=${{ inputs.project-name }}&releaseName=${{ inputs.release-name }}" \
           -u ${{ inputs.username }}:${{ inputs.user-token }} \
           -H "accept: application/json" \
           -d @data.json
+          
