@@ -34,10 +34,11 @@ runs:
       run: |
         #set -x
         dnf -y install jq
+        PROJECT=`echo "${{ inputs.project-name }}" | jq -Rr @uri`
+        RELEASE=`echo "${{ inputs.release-name }}" | jq -Rr @uri`
         echo "${{ inputs.parameters }}" > data.json
         cat data.json
-        curl -k -X POST "${{ inputs.url }}/rest/v1.0/releases?projectName=${{ inputs.project-name }}&releaseName=${{ inputs.release-name }}" \
+        curl -k -X POST "${{ inputs.url }}/rest/v1.0/releases?projectName=${PROJECT}&releaseName=${RELEASE}" \
           -u ${{ inputs.username }}:${{ inputs.user-token }} \
           -H "accept: application/json" \
           -d @data.json
-          
