@@ -5,7 +5,7 @@ inputs:
   url:
     description: 'CDRO URL'
     required: false
-    default: 'https://sda.preview.cb-demos.io/'
+    default: 'https://sda.preview.cb-demos.io'
   username:
     description: 'CDRO Username'
     required: true
@@ -33,9 +33,15 @@ runs:
       shell: sh
       run: |
         set -x
+        echo "Show ENV"
         env
+        echo "Show Disks"
         df -h
+        echo "project-name: ${{ inputs.project-name }}"
+        echo "release-name: ${{ inputs.release-name }}"
+        echo "Variables: ${{ inputs.parameters }}"
+        echo "Run CURL"
         curl -k -X POST "${{ inputs.url }}/rest/v1.0/releases?projectName=${{ inputs.project-name }}&releaseName=${{ inputs.release-name }}" \
           -u ${{ inputs.username }}:${{ inputs.user-token }} \
           -H "accept: application/json" \
-          -d "${{ inputs.parameters }}"
+          -d ${{ inputs.parameters }}
