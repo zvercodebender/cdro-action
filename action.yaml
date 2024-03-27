@@ -31,12 +31,6 @@ runs:
       name: invoke-cdro-action
       uses: docker://fedora:39
       shell: sh
-      env: 
-        RUN_ID: ${{ cloudbees.run_id }}
-        JOB_ID: ${{ job.id }}
-        STEP_ID: ${{ step.internal.id }}
-        DNS_URL: ${{ cloudbees.api.url }}
-        JWT_TOKEN: ${{ cloudbees.api.token }}
       run: |
         set -x
         env
